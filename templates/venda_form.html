@@ -1,0 +1,212 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Cadastrar Venda</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="/vendas/cadastrar" id="formVenda">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="data" class="form-label">Data</label>
+                    <input type="date" class="form-control" id="data" name="data" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="codcliente" class="form-label">Cliente</label>
+                    <select class="form-select" id="codcliente" name="codcliente" required>
+                        <option value="" selected disabled>Selecione um cliente</option>
+                        {% for cliente in clientes %}
+                        <option value="{{ cliente.codcliente }}">{{ cliente.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <h5 class="mb-3">Itens da Venda</h5>
+            <div id="itens">
+                <div class="item-venda card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-5 mb-2">
+                                <label class="form-label">Produto</label>
+                                <select class="form-select produto-select" name="codproduto" required>
+                                    <option value="" selected disabled>Selecione um produto</option>
+                                    {% for produto in produtos %}
+                                    <option value="{{ produto.codproduto }}" data-preco="{{ produto.preco }}">
+                                        {{ produto.nome }} - R$ {{ produto.preco }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label class="form-label">Quantidade</label>
+                                <input type="number" class="form-control qtde-input" name="qtde" min="1" value="1" required>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label class="form-label">Valor Unit.</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="number" class="form-control valor-input" name="valor" step="0.01" min="0" required>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label class="form-label">Subtotal</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="text" class="form-control subtotal" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <button type="button" id="addItem" class="btn btn-secondary">
+                    <i class="bi bi-plus-circle"></i> Adicionar Item
+                </button>
+            </div>
+
+            <div class="row justify-content-end mb-3">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total da Venda</h5>
+                            <div class="input-group">
+                                <span class="input-group-text">R$</span>
+                                <input type="text" class="form-control" id="totalVenda" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Finalizar Venda</button>
+                <a href="/vendas" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Template para novo item
+        const itemTemplate = document.querySelector('.item-venda').cloneNode(true);
+
+        // Adicionar novo item
+        document.getElementById('addItem').addEventListener('click', function() {
+            const newItem = itemTemplate.cloneNode(true);
+
+            // Limpar valores
+            const inputs = newItem.querySelectorAll('input');
+            inputs.forEach(input => {
+                if (input.classList.contains('qtde-input')) {
+                    input.value = 1;
+                } else if (!input.classList.contains('subtotal')) {
+                    input.value = '';
+                }
+            });
+
+            // Resetar select
+            const select = newItem.querySelector('select');
+            select.selectedIndex = 0;
+
+            // Adicionar botão remover
+            const row = newItem.querySelector('.row');
+            const removeBtn = document.createElement('div');
+            removeBtn.className = 'col-12 mt-2';
+            removeBtn.innerHTML = `<button type="button" class="btn btn-danger btn-sm remove-item">Remover Item</button>`;
+            row.appendChild(removeBtn);
+
+            // Adicionar eventos
+            setupItemEvents(newItem);
+
+            // Adicionar ao DOM
+            document.getElementById('itens').appendChild(newItem);
+
+            // Atualizar total
+            updateTotal();
+        });
+
+        // Configurar eventos para item inicial
+        setupItemEvents(document.querySelector('.item-venda'));
+
+        // Eventos para remover itens
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('remove-item')) {
+                if (document.querySelectorAll('.item-venda').length > 1) {
+                    e.target.closest('.item-venda').remove();
+                    updateTotal();
+                } else {
+                    alert('É necessário pelo menos um item na venda.');
+                }
+            }
+        });
+
+        // Função para configurar eventos dos itens
+        function setupItemEvents(item) {
+            const produtoSelect = item.querySelector('.produto-select');
+            const qtdeInput = item.querySelector('.qtde-input');
+            const valorInput = item.querySelector('.valor-input');
+            const subtotalEl = item.querySelector('.subtotal');
+
+            // Preencher valor quando selecionar produto
+            produtoSelect.addEventListener('change', function() {
+                const selectedOption = produtoSelect.options[produtoSelect.selectedIndex];
+                const preco = selectedOption.getAttribute('data-preco');
+                valorInput.value = preco;
+                updateSubtotal();
+            });
+
+            // Atualizar subtotal quando mudar quantidade ou valor
+            qtdeInput.addEventListener('input', updateSubtotal);
+            valorInput.addEventListener('input', updateSubtotal);
+
+            function updateSubtotal() {
+                const qtde = parseFloat(qtdeInput.value) || 0;
+                const valor = parseFloat(valorInput.value) || 0;
+                const subtotal = qtde * valor;
+                subtotalEl.value = subtotal.toFixed(2);
+                updateTotal();
+            }
+        }
+
+        // Função para atualizar o total da venda
+        function updateTotal() {
+            const subtotals = document.querySelectorAll('.subtotal');
+            let total = 0;
+
+            subtotals.forEach(function(el) {
+                total += parseFloat(el.value) || 0;
+            });
+
+            document.getElementById('totalVenda').value = total.toFixed(2);
+        }
+
+        // Validar formulário antes de enviar
+        document.getElementById('formVenda').addEventListener('submit', function(e) {
+            const itens = document.querySelectorAll('.item-venda');
+            let valid = true;
+
+            itens.forEach(function(item) {
+                const produto = item.querySelector('.produto-select').value;
+                const qtde = item.querySelector('.qtde-input').value;
+                const valor = item.querySelector('.valor-input').value;
+
+                if (!produto || !qtde || !valor) {
+                    valid = false;
+                }
+            });
+
+            if (!valid) {
+                e.preventDefault();
+                alert('Por favor, preencha todos os campos dos itens.');
+            }
+        });
+    });
+</script>
+{% endblock %}

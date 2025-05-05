@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Vendas</h4>
+        <a href="/vendas/cadastrar" class="btn btn-light">Nova Venda</a>
+    </div>
+    <div class="card-body">
+        {% if vendas %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Data</th>
+                        <th>Cliente</th>
+                        <th>Valor Total</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for venda in vendas %}
+                    <tr>
+                        <td>{{ venda.codvenda }}</td>
+                        <td>{{ venda.data }}</td>
+                        <td>{{ venda.cliente }}</td>
+                        <td>R$ {{ venda.valor_total }}</td>
+                        <td>
+                            <a href="/vendas/{{ venda.codvenda }}" class="btn btn-sm btn-info">
+                                Detalhes
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info text-center">
+            Nenhuma venda registrada.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

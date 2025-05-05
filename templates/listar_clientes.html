@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Clientes</h4>
+        <a href="/clientes/cadastrar" class="btn btn-light">Novo Cliente</a>
+    </div>
+    <div class="card-body">
+        {% if clientes %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Endereço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes %}
+                    <tr color="e0e0e0">
+                        <td>{{ cliente.codcliente }}</td>
+                        <td>{{ cliente.nome }}</td>
+                        <td>{{ cliente.endereco }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info text-center">
+            Nenhum cliente cadastrado.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
