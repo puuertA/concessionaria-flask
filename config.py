@@ -1,10 +1,10 @@
 import pymysql
 
-MYSQL_HOST = '177.190.74.69'
-MYSQL_PORT = 65004
-MYSQL_USER = 'trabtpc'
-MYSQL_PASSWORD = 'trabtpc'
-MYSQL_DB = 'tpc15'
+MYSQL_HOST = 'localhost'
+MYSQL_PORT = 3306
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = 'ifsp'
+MYSQL_DB = 'dbconcessionaria'
 
 def conectar():
     conexao = pymysql.connect(
