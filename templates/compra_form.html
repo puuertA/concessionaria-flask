@@ -2,17 +2,17 @@
 
 {% block content %}
 <div class="container">
-    <h2>Cadastrar Venda</h2>
+    <h2>Cadastrar Compra</h2>
     
     <form method="POST">
         <div class="mb-3">
-            <label for="data" class="form-label">Data:</label>
-            <input type="date" class="form-control" id="data" name="data" required>
-        </div>
-        
-        <div class="mb-3">
-            <label for="valor_vendido" class="form-label">Valor Vendido:</label>
-            <input type="number" class="form-control" id="valor_vendido" name="valor_vendido" step="0.01" required>
+            <label for="idplaca" class="form-label">Veículo:</label>
+            <select class="form-control" id="idplaca" name="idplaca" required>
+                <option value="">Selecione um veículo</option>
+                {% for veiculo in veiculos %}
+                <option value="{{ veiculo[0] }}">{{ veiculo[0] }} - {{ veiculo[4] }} {{ veiculo[5] }}</option>
+                {% endfor %}
+            </select>
         </div>
         
         <div class="mb-3">
@@ -26,13 +26,13 @@
         </div>
         
         <div class="mb-3">
-            <label for="idplaca" class="form-label">Veículo:</label>
-            <select class="form-control" id="idplaca" name="idplaca" required>
-                <option value="">Selecione um veículo</option>
-                {% for veiculo in veiculos %}
-                <option value="{{ veiculo[0] }}">{{ veiculo[0] }} - {{ veiculo[4] }} {{ veiculo[5] }}</option>
-                {% endfor %}
-            </select>
+            <label for="data" class="form-label">Data:</label>
+            <input type="date" class="form-control" id="data" name="data" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="valor_pago" class="form-label">Valor Pago:</label>
+            <input type="number" class="form-control" id="valor_pago" name="valor_pago" step="0.01" required>
         </div>
         
         <div class="mb-3">
@@ -41,7 +41,7 @@
         </div>
         
         <button type="submit" class="btn btn-success">Cadastrar</button>
-        <a href="{{ url_for('listar_vendas') }}" class="btn btn-secondary">Voltar</a>
+        <a href="{{ url_for('listar_compras') }}" class="btn btn-secondary">Voltar</a>
     </form>
 </div>
 {% endblock %}

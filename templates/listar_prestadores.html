@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Lista de Prestadores</h2>
+    
+    <a href="{{ url_for('cadastrar_prestador') }}" class="btn btn-primary mb-3">Cadastrar Novo Prestador</a>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome da Empresa</th>
+                <th>Cidade</th>
+                <th>UF</th>
+                <th>CEP</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prestador in prestadores %}
+            <tr>
+                <td>{{ prestador[0] }}</td>
+                <td>{{ prestador[1] }}</td>
+                <td>{{ prestador[2] }}</td>
+                <td>{{ prestador[3] }}</td>
+                <td>{{ prestador[4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

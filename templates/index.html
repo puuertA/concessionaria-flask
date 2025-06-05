@@ -1,45 +1,80 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-lg-8">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Sistema de Vendas</h4>
-            </div>
-            <div class="card-body">
-                <div class="text-center mb-4">
-                    <h2>🔥 Bem-vindo ao Sistema de Vendas 🔥</h2>
-                    <p class="lead">Gerencie seus clientes 🕵️‍♂️, produtos 📦 e vendas 💰 em um único lugar</p>
-                </div>
+<div class="main-card">
+    <div class="main-card-header">
+        <h1 class="mb-0"><i class="bi bi-car-front-fill"></i> Vilson Mega Cars</h1>
+        <p class="lead mb-0">Sistema de Gerenciamento de Concessionária</p>
+    </div>
+    <div class="main-card-body">
+        <div class="text-center mb-5">
+            <h2>Bem-vindo ao Sistema Completo</h2>
+            <p class="lead">Gerencie todos os aspectos da sua concessionária em um só lugar</p>
+        </div>
 
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Clientes</h5>
-                                <p class="card-text">Cadastre e gerencie seus clientes</p>
-                                <a href="/clientes" class="btn btn-primary">Acessar</a>
-                            </div>
-                        </div>
+        <div class="row g-4">
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="feature-card">
+                    <div class="card-body">
+                        <i class="bi bi-people-fill fs-1 mb-3"></i>
+                        <h5 class="card-title">Clientes</h5>
+                        <p class="card-text">Cadastre e gerencie informações completas dos seus clientes</p>
+                        <a href="/clientes" class="btn btn-primary">Acessar</a>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Produtos</h5>
-                                <p class="card-text">Cadastre e gerencie seus produtos</p>
-                                <a href="/produtos" class="btn btn-primary">Acessar</a>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="feature-card">
+                    <div class="card-body">
+                        <i class="bi bi-truck fs-1 mb-3"></i>
+                        <h5 class="card-title">Veículos</h5>
+                        <p class="card-text">Controle o estoque de veículos com preços e características</p>
+                        <a href="/veiculos" class="btn btn-primary">Acessar</a>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Vendas</h5>
-                                <p class="card-text">Registre e controle suas vendas</p>
-                                <a href="/vendas" class="btn btn-primary">Acessar</a>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="feature-card">
+                    <div class="card-body">
+                        <i class="bi bi-currency-dollar fs-1 mb-3"></i>
+                        <h5 class="card-title">Vendas</h5>
+                        <p class="card-text">Registre e acompanhe todas as vendas realizadas</p>
+                        <a href="/vendas" class="btn btn-success">Acessar</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="feature-card">
+                    <div class="card-body">
+                        <i class="bi bi-bag-plus fs-1 mb-3"></i>
+                        <h5 class="card-title">Compras</h5>
+                        <p class="card-text">Gerencie a aquisição de novos veículos para o estoque</p>
+                        <a href="/compras" class="btn btn-info">Acessar</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="feature-card">
+                    <div class="card-body">
+                        <i class="bi bi-tools fs-1 mb-3"></i>
+                        <h5 class="card-title">Prestadores</h5>
+                        <p class="card-text">Cadastre empresas prestadoras de serviços automotivos</p>
+                        <a href="/prestadores" class="btn btn-warning">Acessar</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="feature-card">
+                    <div class="card-body">
+                        <i class="bi bi-graph-up fs-1 mb-3"></i>
+                        <h5 class="card-title">Despesas</h5>
+                        <p class="card-text">Controle gastos com manutenção e serviços dos veículos</p>
+                        <a href="/despesas" class="btn btn-danger">Acessar</a>
                     </div>
                 </div>
             </div>

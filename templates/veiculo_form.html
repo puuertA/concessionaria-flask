@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Cadastrar Veículo</h2>
+    
+    <form method="POST">
+        <div class="mb-3">
+            <label for="idplaca" class="form-label">Placa:</label>
+            <input type="text" class="form-control" id="idplaca" name="idplaca" required maxlength="9">
+        </div>
+        
+        <div class="mb-3">
+            <label for="ano" class="form-label">Ano:</label>
+            <input type="number" class="form-control" id="ano" name="ano" required min="1900" max="2030">
+        </div>
+        
+        <div class="mb-3">
+            <label for="modelo" class="form-label">Modelo:</label>
+            <input type="number" class="form-control" id="modelo" name="modelo" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="preco_fipe" class="form-label">Preço FIPE:</label>
+            <input type="number" class="form-control" id="preco_fipe" name="preco_fipe" step="0.01" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="fabricante" class="form-label">Fabricante:</label>
+            <input type="text" class="form-control" id="fabricante" name="fabricante" required maxlength="50">
+        </div>
+        
+        <div class="mb-3">
+            <label for="modelo_veiculo" class="form-label">Modelo do Veículo:</label>
+            <input type="text" class="form-control" id="modelo_veiculo" name="modelo_veiculo" required maxlength="60">
+        </div>
+        
+        <div class="mb-3">
+            <label for="cor" class="form-label">Cor:</label>
+            <input type="text" class="form-control" id="cor" name="cor" required maxlength="20">
+        </div>
+        
+        <div class="mb-3">
+            <label for="preco_venda" class="form-label">Preço de Venda:</label>
+            <input type="number" class="form-control" id="preco_venda" name="preco_venda" step="0.01">
+        </div>
+        
+        <div class="mb-3">
+            <label for="total_despesa" class="form-label">Total Despesa:</label>
+            <input type="number" class="form-control" id="total_despesa" name="total_despesa" step="0.01">
+        </div>
+        
+        <button type="submit" class="btn btn-success">Cadastrar</button>
+        <a href="{{ url_for('listar_veiculos') }}" class="btn btn-secondary">Voltar</a>
+    </form>
+</div>
+{% endblock %}

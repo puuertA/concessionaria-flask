@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Lista de Veículos</h2>
+    
+    <a href="{{ url_for('cadastrar_veiculo') }}" class="btn btn-primary mb-3">Cadastrar Novo Veículo</a>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Placa</th>
+                <th>Ano</th>
+                <th>Modelo</th>
+                <th>Fabricante</th>
+                <th>Modelo do Veículo</th>
+                <th>Cor</th>
+                <th>Preço FIPE</th>
+                <th>Preço de Venda</th>
+                <th>Total Despesa</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for veiculo in veiculos %}
+            <tr>
+                <td>{{ veiculo[0] }}</td>
+                <td>{{ veiculo[1] }}</td>
+                <td>{{ veiculo[2] }}</td>
+                <td>{{ veiculo[4] }}</td>
+                <td>{{ veiculo[5] }}</td>
+                <td>{{ veiculo[6] }}</td>
+                <td>R$ {{ "%.2f"|format(veiculo[3]) }}</td>
+                <td>{% if veiculo[7] %}R$ {{ "%.2f"|format(veiculo[7]) }}{% else %}N/A{% endif %}</td>
+                <td>{% if veiculo[8] %}R$ {{ "%.2f"|format(veiculo[8]) }}{% else %}N/A{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

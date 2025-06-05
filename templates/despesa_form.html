@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Cadastrar Despesa</h2>
+    
+    <form method="POST">
+        <div class="mb-3">
+            <label for="idplaca" class="form-label">Veículo:</label>
+            <select class="form-control" id="idplaca" name="idplaca" required>
+                <option value="">Selecione um veículo</option>
+                {% for veiculo in veiculos %}
+                <option value="{{ veiculo[0] }}">{{ veiculo[0] }} - {{ veiculo[4] }} {{ veiculo[5] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição:</label>
+            <input type="text" class="form-control" id="descricao" name="descricao" required maxlength="80">
+        </div>
+        
+        <div class="mb-3">
+            <label for="valor" class="form-label">Valor:</label>
+            <input type="number" class="form-control" id="valor" name="valor" step="0.01" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="idprestador" class="form-label">Prestador:</label>
+            <select class="form-control" id="idprestador" name="idprestador" required>
+                <option value="">Selecione um prestador</option>
+                {% for prestador in prestadores %}
+                <option value="{{ prestador[0] }}">{{ prestador[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="data_servico" class="form-label">Data do Serviço:</label>
+            <input type="date" class="form-control" id="data_servico" name="data_servico" required>
+        </div>
+        
+        <button type="submit" class="btn btn-success">Cadastrar</button>
+        <a href="{{ url_for('listar_despesas') }}" class="btn btn-secondary">Voltar</a>
+    </form>
+</div>
+{% endblock %}

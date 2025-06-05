@@ -2,17 +2,12 @@
 
 {% block content %}
 <div class="container">
-    <h2>Cadastrar Cliente</h2>
+    <h2>Cadastrar Prestador</h2>
     
     <form method="POST">
         <div class="mb-3">
-            <label for="nome" class="form-label">Nome:</label>
-            <input type="text" class="form-control" id="nome" name="nome" required maxlength="60">
-        </div>
-        
-        <div class="mb-3">
-            <label for="endereco" class="form-label">Endereço:</label>
-            <input type="text" class="form-control" id="endereco" name="endereco" required maxlength="100">
+            <label for="nome_empresa" class="form-label">Nome da Empresa:</label>
+            <input type="text" class="form-control" id="nome_empresa" name="nome_empresa" required maxlength="60">
         </div>
         
         <div class="mb-3">
@@ -31,7 +26,7 @@
         </div>
         
         <button type="submit" class="btn btn-success">Cadastrar</button>
-        <a href="{{ url_for('listar_clientes') }}" class="btn btn-secondary">Voltar</a>
+        <a href="{{ url_for('listar_prestadores') }}" class="btn btn-secondary">Voltar</a>
     </form>
 </div>
 {% endblock %}
